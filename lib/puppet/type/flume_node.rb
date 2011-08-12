@@ -27,7 +27,7 @@ Puppet::Type.newtype(:flume_node) do
     defaultto :insync
 
     def retrieve
-      `flume shell -q -c #{resource[:master]} -e getconfigs 2>/dev/null |grep #{resource[:name]}`
+      `flume shell -q -c #{resource[:master]} -e getconfigs 2>/dev/null | grep #{resource[:name]} | grep -v null`
       ($? == 0 ? :insync : :outofsync)
     end
 
