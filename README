@@ -1,6 +1,6 @@
 Sample usage:
 
-    flume_node { $hostname:
+    flume_node { $fqdn:
       master => "flume-master.example.com",
       source => "syslogTcp( 35852 )",
       sink   => "agentE2EChain( \"collector1.example.com:35853\" )",
