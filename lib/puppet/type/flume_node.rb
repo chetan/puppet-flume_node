@@ -40,6 +40,13 @@ Puppet::Type.newtype(:flume_node) do
       name = resource[:name]
       source = resource[:source]
       sink = resource[:sink]
+      if sink.kind_of? Hash then
+        # support hashes of the format:
+        # { sinkType => [ array of nodes ] }
+        # e.g.
+        # { agentE2EChain => [ "flume1.example.com:35853", "flume2.example.com:35853" ] }
+        sink = sink.keys.first + "( " + sink.values.first.shuffle.map{ |s| "\"#{s}\"" }.join(", ") + " )"
+      end
 
       conf = <<-EOF
 connect #{master}

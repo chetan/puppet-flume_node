@@ -7,3 +7,11 @@ Sample usage:
       ensure => insync,
     }
 
+Or using multiple collectors:
+
+    flume_node { $fqdn:
+      master => "flume-master.example.com",
+      source => "syslogTcp( 35852 )",
+      sink   => "agentE2EChain" => [ "flume1.example.com:35853", "flume2.example.com:35853" ] )",
+      ensure => insync,
+    }
